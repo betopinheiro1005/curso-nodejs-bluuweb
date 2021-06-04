@@ -1,0 +1,84 @@
+<%- include("../templates/header", {bodyTitle: "Detalhes do pet" }) %>
+
+<div class="container mb-4 mt-2">
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h1 class="text-center mb-3">Detalhes do pet</h1>
+                <% if (error) { %>
+                    <h3 class="text-danger text-center mb-5">
+                        <%= message %>
+                    </h3>
+                    <a href="/pets" class="btn btn-success btn-block">Listar Pets</a>
+                <% } %>
+            </div>
+            <div class="col-md-2"></div>
+        </div>    
+
+
+    <% if (!error) { %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Espécie</th>
+                    <th scope="col">Sexo</th>
+                    <th scope="col">Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">
+                        <%= pet.id %>
+                    </th>
+                    <td>
+                        <%= pet.nome %>
+                    </td>
+                    <td>
+                        <%= pet.especie %>
+                    </td>
+                    <td>
+                        <% if (pet.sexo==='M' ) { %>
+                            Macho
+                        <% } %>
+
+                        <% if (pet.sexo==='F' ) { %>
+                             Fêmea
+                        <% } %>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger btn-sm btn-block" id="btnEliminar" data-id="<%= pet.id %>">
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <% } %>
+</div>
+
+<%- include("../templates/footer") %>
+
+
+<script>
+    const btnEliminar = document.querySelector('.btn-danger')
+    btnEliminar.addEventListener('click', async () => {
+        console.log(btnEliminar.dataset.id)
+        try {
+            const data = await fetch(`/pets/${btnEliminar.dataset.id}`, {
+                method: 'delete'
+            })
+            const res = await data.json()
+            console.log(res)
+            if (res.status) {
+                window.location.href = '/pets'
+            } else {
+                console.log(res)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    })
+</script>

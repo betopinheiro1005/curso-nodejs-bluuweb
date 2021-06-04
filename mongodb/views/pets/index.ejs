@@ -1,0 +1,28 @@
+<%- include("../templates/header", {bodyTitle: "Home" }) %>
+
+    <div class="container mb-4 mt-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Espécie</th>
+                    <th scope="col">Sexo</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% arrayPets.forEach(pet => { %>
+                    <tr>
+                        <th scope="row"><%= pet.id %> </th>
+                        <td><%= pet.nome %> </td>
+                        <td><%= pet.especie %> </td>
+                        <td><%= pet.sexo %> </td>
+                        <td></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <%- include("../templates/footer") %>

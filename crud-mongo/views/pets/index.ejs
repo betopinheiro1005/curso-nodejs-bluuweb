@@ -1,0 +1,53 @@
+<%- include("../templates/header", {bodyTitle: "Home" }) %>
+
+<div class="container mb-4 mt-2">
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <h1 class="text-center mt-2 mb-3">Pets</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Espécie</th>
+                            <th scope="col">Sexo</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% arrayPets.forEach(pet=> { %>
+                            <tr>
+                                <th scope="row">
+                                    <%= pet.id %>
+                                </th>
+                                <td>
+                                    <%= pet.nome %>
+                                </td>
+                                <td>
+                                    <%= pet.especie %>
+                                </td>
+                                <td>
+                                    <% if (pet.sexo==='M' ) { %>
+                                            Macho
+                                        <% } %>
+
+                                        <% if (pet.sexo==='F' ) { %>
+                                            Fêmea
+                                        <% } %>
+                                </td>
+                                <td><a class="btn btn-primary btn-sm" href="/pets/<%= pet.id %>">Detalhes</a>
+                                    <a class="btn btn-warning btn-sm" href="/pets/edit/<%= pet.id %>">Editar</a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+
+</div>
+
+<%- include("../templates/footer") %>

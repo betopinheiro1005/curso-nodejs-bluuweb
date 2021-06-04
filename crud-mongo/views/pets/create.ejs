@@ -1,0 +1,40 @@
+<%- include("../templates/header", {bodyTitle: "Cadastrar um pet" }) %>
+
+    <div class="container mb-4 mt-2">
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+
+                <h1 class="text-center">Cadastrar Pet</h1>
+
+                <form action="/pets" method="POST">
+                    <label for="nome">Nome:</label>
+                    <input type="text" name="nome" placeholder="Digite o nome do Pet" class="form-control my-2"><br />
+                
+                    <label for="especie">Espécie:</label>
+                    <select name="especie" class="form-control">
+                        <option value="cachorro">Cachorro</option>
+                        <option value="gato">Gato</option>
+                        <option value="coelho">Coelho</option>
+                        <option value="hamster">Hamster</option>
+                    </select><br />
+                
+                    <label for="sexo">Sexo:</label>
+                    <select name="sexo" class="form-control">
+                        <option value="M">Macho</option>
+                        <option value="F">Fêmea</option>
+                    </select><br /><br />
+                
+                    <button class="btn btn-success btn-block" type="submit">
+                        Cadastrar
+                    </button>
+                </form>
+
+            </div>>
+            <div class="col-md-2"></div>
+        </div>    
+
+    </div>
+
+    <%- include("../templates/footer") %>

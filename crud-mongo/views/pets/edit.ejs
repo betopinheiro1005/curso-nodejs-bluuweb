@@ -1,0 +1,117 @@
+<%- include("../templates/header", {bodyTitle: "Detalhes do pet" }) %>
+
+    <div class="container mb-4 mt-2">
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+
+                <h1 class="text-center mb-3">Atualização de dados do pet</h1>
+                <% if (error) { %>
+                    <h3 class="text-danger text-center mb-5">
+                        <%= message %>
+                    </h3>
+                    <a href="/pets" class="btn btn-success btn-block">Listar Pets</a>
+                    <% } %>
+                
+                        <% if (!error) { %>
+                
+                            <form id="formularioEditar" data-id="<%= pet.id %>">
+                                <label for="nome">Nome</label>
+                                <input type="text" class="form-control my-2" name="nome" value="<%= pet.nome %>" id="nomeInput"><br />
+                
+                                <label for="especie">Espécie:</label>
+                                <select name="especie" id="especieSelect" class="form-control">
+
+                                    <% if (pet.especie==='cachorro' ) { %>
+                                        <option value="cachorro" selected="selected">Cachorro</option>
+                                    <% } else {%>
+                                        <option value="cachorro">Cachorro</option>
+                                    <% } %>
+
+                                    <% if (pet.especie==='gato' ) { %>
+                                        <option value="gato" selected="selected">Gato</option>
+                                    <% } else {%>
+                                        <option value="gato">Gato</option>
+                                    <% } %>
+
+                                    <% if (pet.especie==='coelho' ) { %>
+                                        <option value="coelho" selected="selected">Coelho</option>
+                                    <% } else {%>
+                                        <option value="coelho">Coelho</option>
+                                    <% } %>
+
+                                    <% if (pet.especie==='hamster' ) { %>
+                                        <option value="hamster" selected="selected">Hamster</option>
+                                    <% } else {%>
+                                        <option value="hamster">Hamster</option>
+                                    <% } %>
+
+                                </select><br /><br />
+                
+                                <label for="sexo">Sexo:</label>
+                                <select name="sexo" id="sexoSelect" class="form-control">
+                                    <% if (pet.sexo==='F' ) { %>
+                                        <option value="F" selected="selected">Fêmea</option>
+                                    <% } else {%>
+                                        <option value="F">Fêmea</option>
+                                    <% } %>
+
+                                    <% if (pet.sexo==='M' ) { %>
+                                        <option value="M" selected="selected">Macho</option>
+                                    <% } else {%>
+                                        <option value="M">Macho</option>
+                                    <% } %>
+                                </select><br /><br />
+                
+                                <button class="btn btn-warning btn-block type=" submit">
+                                    Gravar
+                                </button>
+                            </form>
+                
+                            <% } %>
+                                </div>
+                
+
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+
+    <%- include("../templates/footer") %>
+
+<script>
+
+    const formularioEditar = document.querySelector('#formularioEditar')
+
+    formularioEditar.addEventListener('submit', async (e) => {
+        e.preventDefault()
+
+        const nome = formularioEditar.elements['nome'].value
+        const especie = document.querySelector('#especieSelect').value
+        const sexo = document.querySelector('#sexoSelect').value
+        const id = formularioEditar.dataset.id
+
+        try {
+
+            const data = await fetch(`/pets/${id}`, {
+                method: 'put',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nome, especie, sexo })
+            })
+
+            const res = await data.json()
+
+            if (res.estado) {
+                window.location.href = '/pets'
+            } else {
+                console.log(res)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+    })
+
+</script>
